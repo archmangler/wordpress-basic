@@ -6,6 +6,7 @@ WordPress Basic
 - Documentation intended to be clear, complete and requiring minimal knowledge to get working.
 - Installs PHP and NGINX on Ubuntu 16.04 (Not tested on other distributions)
 - Bring your own database (Assuming mysql or mariadb)
+- Deploys a vanilla wordpress and expects you to complete the configuration via the web UI.
 
 Requirements
 ------------
@@ -20,7 +21,16 @@ Role Variables
 
 ```
 ---
+#Wordpress database details
+wordpress_db_username: berryrydell
+wordpress_db_password: Id0ru!!
+wordpress_db: reamde 
+wordpress_db_host: blog.engeneon.com 
+wordpress_db_host_port: 6606
 
+#Wordpress Application specifics
+wordpress_admin_user: blogmaster
+wordpress_admin_password: d3ns3tZu!! 
 ```
 
 Dependencies
