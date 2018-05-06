@@ -22,15 +22,32 @@ Role Variables
 ```
 ---
 #Wordpress database details
-wordpress_db_username: berryrydell
-wordpress_db_password: Id0ru!!
-wordpress_db: reamde 
-wordpress_db_host: blog.engeneon.com 
-wordpress_db_host_port: 6606
+wordpress_db_username: blog
+wordpress_db_password: sunburn
+wordpress_db: blogger
+wordpress_db_host: localhost
+wordpress_db_host_port: 3306
+wordpress_db_restore_file: blogger.sql
+wordpress_archive_extension: zip
+wordpress_db_restore_archive: "{{ wordpress_db_restore_file }}.{{ wordpress_archive_extension }}"
+wordpress_db_root_username: root
+wordpress_db_root_password: yabadabadoo
+
+#Enable this if you want to restore from existing WP
+#backup. You'll then not need to go through the 
+#Web UI installation process, your site should be
+#in the state the last MySQL db export captured.
+restore_from_backup: True
 
 #Wordpress Application specifics
-wordpress_admin_user: blogmaster
-wordpress_admin_password: d3ns3tZu!! 
+wordpress_admin_user: blogger
+wordpress_admin_password: sunburn
+web_root: /var/www/html
+wordpress_directory: wordpress
+webserver_user: www-data 
+webserver_group: www-data
+dns_domain_name: lol.com
+website_fqdn: blog.lol.com
 ```
 
 Dependencies
