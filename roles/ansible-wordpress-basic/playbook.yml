@@ -1,4 +1,4 @@
-- hosts: engeneon-web
+- hosts: web-servers
   become: yes
   roles:
     - { role: ansible-wordpress-basic }
