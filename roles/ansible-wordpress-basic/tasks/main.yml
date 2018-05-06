@@ -1,2 +1,25 @@
 ---
-# tasks file for ansible-wordpress-basic
+- name: Add PPA for Nginx.
+  apt_repository:
+    repo: 'ppa:nginx/{{ nginx_ppa_version }}'
+    state: present
+    update_cache: yes
+  register: nginx_ppa_added
+  when: nginx_ppa_use
+
+- name: Ensure nginx will reinstall if the PPA was just added.
+  apt:
+    name: nginx
+    state: absent
+  when: nginx_ppa_added.changed
+
+- name: Install nginx from PPA
+  apt:
+    name: nginx
+    state: present
+
+- name: Ensure nginx is started and enabled to start at boot.
+  systemd:
+    name: nginx
+    state: started
+    enabled: yes
