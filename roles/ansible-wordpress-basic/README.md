@@ -4,7 +4,7 @@ WordPress Basic
 - Wordpress installation to get up and running with minimal fuss and complexity.
 - The focus of the role is simplicity and sane defaults over unnecessary flexibility
 - Documentation intended to be clear, complete and requiring minimal knowledge to get working.
-- Installs PHP and NGINX on Ubuntu 16.04 (Not tested on other distributions)
+- Installs PHP 7.1 and NGINX on Ubuntu 16.04 (Not tested on other distributions)
 - Bring your own database (Assuming mysql or mariadb)
 - Deploys a vanilla wordpress and expects you to complete the configuration via the web UI.
 
