@@ -9,3 +9,5 @@ wordpress_db_host_port: 3306
 #Wordpress Application specifics
 wordpress_admin_user: engeneonblogger
 wordpress_admin_password: 5n22Sunburn
+web_root: /var/www/html
+wordpress_directory: wordpress
