@@ -11,3 +11,5 @@ wordpress_admin_user: engeneonblogger
 wordpress_admin_password: 5n22Sunburn
 web_root: /var/www/html
 wordpress_directory: wordpress
+webserver_user: www-data 
+webserver_group: www-data
