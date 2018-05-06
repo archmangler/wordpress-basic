@@ -1,0 +1,4 @@
+- hosts: engeneon-web
+  become: yes
+  roles:
+    - { role: ansible-wordpress-basic }
