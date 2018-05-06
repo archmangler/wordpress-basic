@@ -59,7 +59,65 @@
 - name: Download and unarchive wordpress source
   unarchive:
     src: https://wordpress.org/latest.tar.gz
-    dest: /var/www/html/
+    dest: "{{ web_root }}" 
     remote_src: yes
 
+- name: Set the right permissions on wordpress directory
+  file:
+    path: "{{ web_root }}/{{ wordpress_directory }}"
+    owner: "{{ webserver_user }}"
+    group: "{{ webserver_group }}" 
+    recurse: yes
+    mode: 0755
+
+- name: Create the wordpress NGINX configuration (from jinja template)
+  template:
+    src: wordpress.j2
+    dest:  /etc/nginx/sites-available/wordpress
+    owner: root
+    group: root
+    mode: '0600'
+    backup: yes
+
+- name: Enable the wordpress site (by symplink to sites-enabled)
+  file:
+    src: /etc/nginx/sites-available/wordpress
+    dest: /etc/nginx/sites-enabled/wordpress
+    owner: "{{ webserver_user }}"
+    group: "{{ webserver_group }}"
+    state: link
+
+- name: Create the wordpress site configuration (from jinja template)
+  template:
+    src: wp-config-sample.php.j2 
+    dest: "{{ web_root }}/{{ wordpress_directory }}/wp-config.php"
+    owner: "{{ webserver_user }}"
+    group: "{{ webserver_group }}"
+    mode: '0600'
+    backup: yes
+
+- name: Get the latest DB backup of the wordpress site (IF enabled)
+  copy:
+    src: "{{ wordpress_db_restore_archive }}" 
+    dest: /tmp
+  when: restore_from_backup == True
+
+- name: Unarchive the wordpress backup archive "{{ wordpress_db_restore_archive }}"
+  unarchive:
+    src: "/tmp/{{ wordpress_db_restore_archive }}"
+    dest: /tmp/
+    remote_src: yes
+  when: restore_from_backup == True
+
+- name: Restore from the latest DB backup of the wordpress site (IF enabled)
+  shell: mysql -u "{{ wordpress_db_root_username }}" "{{ wordpress_db }}" < "/tmp/{{ wordpress_db_restore_file }}"
+  environment:
+    MYSQL_PWD: "{{ wordpress_db_root_password }}"
+  when: restore_from_backup == True
+
+- name: Restart nginx to apply the new wordpress configuration
+  systemd:
+    name: nginx
+    state: restarted
+    enabled: yes
 
