@@ -1,2 +1,11 @@
 ---
-# defaults file for ansible-wordpress-basic
+#Wordpress database details
+wordpress_db_username: engeneonblogger 
+wordpress_db_password: 5n22Sunburn
+wordpress_db: blog
+wordpress_db_host: db01.engeneon.com 
+wordpress_db_host_port: 3306
+
+#Wordpress Application specifics
+wordpress_admin_user: engeneonblogger
+wordpress_admin_password: 5n22Sunburn
