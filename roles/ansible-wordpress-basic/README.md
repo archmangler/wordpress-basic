@@ -55,6 +55,7 @@ Dependencies
 
 - MySQL DB (Single node, Percona cluster or RDS if on AWS) Optional: geerlingguy.mysql (Or any other role that gets a basic mysql db up and running with minimal fuss)
 - Ubuntu 16.04 Server
+- NOTE REGARDING SECRETS: You can modify this role to use ansible-vault to keep secrets variables safe.
 
 Example Playbook
 ----------------
